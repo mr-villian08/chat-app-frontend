@@ -37,8 +37,8 @@ const Sidebar = () => {
                   <img
                     src={icon.svg}
                     alt={icon.name}
-                    height="50px"
-                    width="50px"
+                    height="35px"
+                    width="35px"
                   />
                   <span className="absolute opacity-0 group-hover:opacity-100 group-hover:dark:text-white group-hover:text-sm group-hover:text-black group-hover:-translate-y-10 duration-700">
                     {icon.name}
@@ -62,8 +62,8 @@ const Sidebar = () => {
           <img
             src={userIcon}
             alt="User Icon"
-            height="60px"
-            width="60px"
+            height="30px"
+            width="30px"
             className="border rounded-full object-cover text-gray-500"
           />
         </li>
