@@ -1,11 +1,13 @@
 import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const settings = {
-  dots: true,
+  dots: false,
   infinite: false,
   speed: 500,
   slidesToShow: 3,
-  slidesToScroll: 1,
+  slidesToScroll: 3,
   initialSlide: 0,
   responsive: [
     {
@@ -14,7 +16,7 @@ const settings = {
         slidesToShow: 3,
         slidesToScroll: 3,
         infinite: true,
-        dots: true,
+        dots: false,
       },
     },
     {
@@ -37,34 +39,25 @@ const settings = {
 
 const ActiveUsers = () => {
   return (
-    <div className="slider-container">
-      <Slider {...settings}>
-        <div>
-          <h3>1</h3>
+    <div className="container mx-auto">
+      <Slider {...settings} arrows={false}>
+        <div className="p-4">
+          <div className="bg-red-500 p-6 text-center">1</div>
         </div>
-        <div>
-          <h3>2</h3>
+        <div className="p-4">
+          <div className="bg-red-500 p-6 text-center">2</div>
         </div>
-        <div>
-          <h3>3</h3>
+        <div className="p-4">
+          <div className="bg-red-500 p-6 text-center">3</div>
         </div>
-        <div>
-          <h3>4</h3>
+        <div className="p-4">
+          <div className="bg-red-500 p-6 text-center">4</div>
         </div>
-        <div>
-          <h3>5</h3>
+        <div className="p-4">
+          <div className="bg-red-500 p-6 text-center">5</div>
         </div>
-        <div>
-          <h3>6</h3>
-        </div>
-        <div>
-          <h3>7</h3>
-        </div>
-        <div>
-          <h3>8</h3>
-        </div>
-        <div>
-          <h3>9</h3>
+        <div className="p-4">
+          <div className="bg-red-500 p-6 text-center">6</div>
         </div>
       </Slider>
     </div>
