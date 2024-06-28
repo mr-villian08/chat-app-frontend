@@ -42,7 +42,18 @@ const ActiveUsers = () => {
     <div className="container mx-auto">
       <Slider {...settings} arrows={false}>
         <div className="p-4">
-          <div className="bg-red-500 p-6 text-center">1</div>
+          <div className="bg-gray-600 relative rounded-lg text-center">
+            <div className="w-12 relative mx-auto -top-4 rounded-full">
+              <img
+                className="w-full rounded-full"
+                src="http://chatvia-dark.react.themesbrand.com/static/media/avatar-2.feb0f89de58f0ef9b424.jpg"
+              />
+              <div className=" p-1 w-1 h-1 absolute right-1 border border-1 bottom-1 z-10 rounded-full bg-green-500"></div>
+            </div>
+            <div className="mb-2 p-1 -mt-3 text-xs font-semibold">
+              Hello World
+            </div>
+          </div>
         </div>
         <div className="p-4">
           <div className="bg-red-500 p-6 text-center">2</div>
