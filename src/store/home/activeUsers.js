@@ -2,47 +2,47 @@ const activeUsers = [
   {
     name: "David",
     image:
-      "http://chatvia-dark.react.themesbrand.com/static/media/avatar-2.feb0f89de58f0ef9b424.jpg",
+      "https://img.freepik.com/free-photo/people-taking-part-high-protocol-event_23-2150951273.jpg?t=st=1719675451~exp=1719679051~hmac=43f4e53b4a725e028985c0cedf1f509c7a6e9e13d5fc9746fbdd301fc2028597&w=740",
   },
   {
     name: "Alice",
     image:
-      "http://chatvia-dark.react.themesbrand.com/static/media/avatar-2.feb0f89de58f0ef9b424.jpg",
+      "https://img.freepik.com/free-photo/people-taking-part-high-protocol-event_23-2150951273.jpg?t=st=1719675451~exp=1719679051~hmac=43f4e53b4a725e028985c0cedf1f509c7a6e9e13d5fc9746fbdd301fc2028597&w=740",
   },
   {
     name: "Eve",
     image:
-      "http://chatvia-dark.react.themesbrand.com/static/media/avatar-2.feb0f89de58f0ef9b424.jpg",
+      "https://img.freepik.com/free-photo/people-taking-part-high-protocol-event_23-2150951273.jpg?t=st=1719675451~exp=1719679051~hmac=43f4e53b4a725e028985c0cedf1f509c7a6e9e13d5fc9746fbdd301fc2028597&w=740",
   },
   {
     name: "Hannah",
     image:
-      "http://chatvia-dark.react.themesbrand.com/static/media/avatar-2.feb0f89de58f0ef9b424.jpg",
+      "https://img.freepik.com/free-photo/people-taking-part-high-protocol-event_23-2150951273.jpg?t=st=1719675451~exp=1719679051~hmac=43f4e53b4a725e028985c0cedf1f509c7a6e9e13d5fc9746fbdd301fc2028597&w=740",
   },
   {
     name: "Charlie",
     image:
-      "http://chatvia-dark.react.themesbrand.com/static/media/avatar-2.feb0f89de58f0ef9b424.jpg",
+      "https://img.freepik.com/free-photo/people-taking-part-high-protocol-event_23-2150951273.jpg?t=st=1719675451~exp=1719679051~hmac=43f4e53b4a725e028985c0cedf1f509c7a6e9e13d5fc9746fbdd301fc2028597&w=740",
   },
   {
     name: "Grace",
     image:
-      "http://chatvia-dark.react.themesbrand.com/static/media/avatar-2.feb0f89de58f0ef9b424.jpg",
+      "https://img.freepik.com/free-photo/people-taking-part-high-protocol-event_23-2150951273.jpg?t=st=1719675451~exp=1719679051~hmac=43f4e53b4a725e028985c0cedf1f509c7a6e9e13d5fc9746fbdd301fc2028597&w=740",
   },
   {
     name: "Ivy",
     image:
-      "http://chatvia-dark.react.themesbrand.com/static/media/avatar-2.feb0f89de58f0ef9b424.jpg",
+      "https://img.freepik.com/free-photo/people-taking-part-high-protocol-event_23-2150951273.jpg?t=st=1719675451~exp=1719679051~hmac=43f4e53b4a725e028985c0cedf1f509c7a6e9e13d5fc9746fbdd301fc2028597&w=740",
   },
   {
     name: "Frank",
     image:
-      "http://chatvia-dark.react.themesbrand.com/static/media/avatar-2.feb0f89de58f0ef9b424.jpg",
+      "https://img.freepik.com/free-photo/people-taking-part-high-protocol-event_23-2150951273.jpg?t=st=1719675451~exp=1719679051~hmac=43f4e53b4a725e028985c0cedf1f509c7a6e9e13d5fc9746fbdd301fc2028597&w=740",
   },
   {
     name: "Jack",
     image:
-      "http://chatvia-dark.react.themesbrand.com/static/media/avatar-2.feb0f89de58f0ef9b424.jpg",
+      "https://img.freepik.com/free-photo/people-taking-part-high-protocol-event_23-2150951273.jpg?t=st=1719675451~exp=1719679051~hmac=43f4e53b4a725e028985c0cedf1f509c7a6e9e13d5fc9746fbdd301fc2028597&w=740",
   },
 ];
 
