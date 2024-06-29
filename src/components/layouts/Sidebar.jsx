@@ -37,9 +37,9 @@ const Sidebar = () => {
                   <img
                     src={icon.svg}
                     alt={icon.name}
-                    height="50px"
-                    width="50px"
-                    className="xl:h-[35px] xl:w-[35px]"
+                    height="40px"
+                    width="40px"
+                    // className="xxl:h-[20px] xxl:w-[20px]"
                   />
                   <span className="absolute opacity-0 group-hover:opacity-100 group-hover:dark:text-white group-hover:text-sm group-hover:text-black group-hover:-translate-y-10 duration-700">
                     {icon.name}
