@@ -1,14 +1,13 @@
 import ActiveUsers from "../components/home/ActiveUsers";
 import Header from "../components/home/Header";
+import RecentChats from "../components/home/RecentChats";
 
 const Chats = () => {
   return (
     <div className="p-7">
       <Header />
-      <div className="mt-6">
-        <ActiveUsers />
-      </div>
-      <div>simple one</div>
+      <ActiveUsers />
+      <RecentChats />
     </div>
   );
 };
