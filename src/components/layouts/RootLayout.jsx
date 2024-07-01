@@ -6,7 +6,7 @@ import ChatContextProvider from "../../utils/ChatContextProvider";
 const RootLayout = () => {
   return (
     <ChatContextProvider>
-      <div className="flex">
+      <div className="flex h-screen overflow-hidden">
         <Sidebar />
         <main className="min-w-[380px] max-w-[380px] dark:bg-gray-900">
           <Outlet />
