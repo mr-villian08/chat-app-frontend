@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 const SenderCard = ({ name, message, timestamp }) => {
   return (
     <div className="flex justify-end w-full mb-4">
-      <div className="max-w-xs bg-gray-700 p-1 rounded-lg">
+      <div className="max-w-xs bg-gray-700 p-3 rounded-lg">
         <div>{message}</div>
         <div className="text-xs text-gray-400 text-end mt-2">{timestamp}</div>
       </div>

@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import messages from "../../store/messages";
 import ChatMessageCard from "../cards/ChatMessageCard";
-import classes from "../../assets/css/ChatMessages.module.css";
+import SimpleBar from "simplebar-react";
+import "simplebar-react/dist/simplebar.min.css";
 
 const ChatMessages = () => {
   const [message, setMessage] = useState("");
+  const messagesEndRef = useRef(null);
 
   const onChangeMessageHandler = (e) => {
     setMessage(e.target.value);
@@ -22,25 +24,29 @@ const ChatMessages = () => {
     setMessage("");
   };
 
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, []);
+
   return (
-    <div className="relative h-screen overflow-hidden">
-      <div
-        className={`${classes["chat-container"]} bg-gray-950 p-6 lg:p-4 pb-20 overflow-x-auto mb-6`}
-        style={{ height: "calc(100vh - 170px)" }}
-      >
-        <div className="border-b border-gray-700 mb-6 pb-2 text-center text-gray-400">
-          <span>Today</span>
-        </div>
-        {messages.map((msg) => (
-          <ChatMessageCard
-            key={msg.id}
-            message={msg.message}
-            timestamp={msg.timestamp}
-            isSender={msg.isSender}
-            avatar={msg.avatar}
-            name={msg.name}
-          />
-        ))}
+    <div className="relative h-screen">
+      <div>
+        <SimpleBar className="h-[calc(100vh-170px)] bg-gray-950 p-6 lg:p-4 pb-20 mb-6">
+          <div className="border-b border-gray-700 mb-6 pb-2 text-center text-gray-400">
+            <span>Today</span>
+          </div>
+          {messages.map((msg) => (
+            <ChatMessageCard
+              key={msg.id}
+              message={msg.message}
+              timestamp={msg.timestamp}
+              isSender={msg.isSender}
+              avatar={msg.avatar}
+              name={msg.name}
+            />
+          ))}
+          <div ref={messagesEndRef} />
+        </SimpleBar>
       </div>
       <div className="mt-4 flex absolute w-full bottom-20 border-t-2 border-gray-700 justify-between p-5">
         <form className="flex w-full" onSubmit={sendMessageHandler}>
