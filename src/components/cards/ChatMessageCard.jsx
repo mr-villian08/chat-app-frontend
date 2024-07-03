@@ -2,11 +2,23 @@ import PropTypes from "prop-types";
 import SenderCard from "./ChatMessage/SenderCard";
 import ReceiverCard from "./ChatMessage/ReceiverCard";
 
-const ChatMessageCard = ({ message, timestamp, isSender, avatar, name }) => {
+const ChatMessageCard = ({
+  message,
+  timestamp,
+  isSender,
+  avatar,
+  name,
+  isLastMessage,
+}) => {
   return (
     <>
       {isSender && (
-        <SenderCard name={name} message={message} timestamp={timestamp} />
+        <SenderCard
+          name={name}
+          message={message}
+          timestamp={timestamp}
+          isLastMessage={isLastMessage}
+        />
       )}
 
       {!isSender && (
@@ -15,6 +27,7 @@ const ChatMessageCard = ({ message, timestamp, isSender, avatar, name }) => {
           avatar={avatar}
           message={message}
           timestamp={timestamp}
+          isLastMessage={isLastMessage}
         />
       )}
     </>
@@ -63,4 +76,5 @@ ChatMessageCard.propTypes = {
   isSender: PropTypes.bool.isRequired,
   avatar: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  isLastMessage: PropTypes.bool.isRequired,
 };

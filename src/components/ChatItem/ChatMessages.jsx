@@ -14,7 +14,9 @@ const ChatMessages = () => {
 
   const sendMessageHandler = (e) => {
     e.preventDefault();
+
     messages.push({
+      id: messages.at(-1).id + 1,
       message: message,
       timestamp: "10:22PM",
       isSender: true,
@@ -25,7 +27,7 @@ const ChatMessages = () => {
   };
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById(`here-id`).scrollIntoView();
   }, []);
 
   return (
@@ -35,7 +37,7 @@ const ChatMessages = () => {
           <div className="border-b border-gray-700 mb-6 pb-2 text-center text-gray-400">
             <span>Today</span>
           </div>
-          {messages.map((msg) => (
+          {messages.map((msg, index) => (
             <ChatMessageCard
               key={msg.id}
               message={msg.message}
@@ -43,6 +45,7 @@ const ChatMessages = () => {
               isSender={msg.isSender}
               avatar={msg.avatar}
               name={msg.name}
+              isLastMessage={messages.length === index + 1}
             />
           ))}
           <div ref={messagesEndRef} />

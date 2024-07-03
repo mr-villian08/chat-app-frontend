@@ -1,8 +1,11 @@
 import PropTypes from "prop-types";
 
-const ReceiverCard = ({ name, avatar, message, timestamp }) => {
+const ReceiverCard = ({ name, avatar, message, timestamp, isLastMessage }) => {
   return (
-    <div className={"flex justify-start mb-4"}>
+    <div
+      className={"flex justify-start mb-4"}
+      id={`${isLastMessage ? "here-id" : undefined}`}
+    >
       <div className="flex items-end">
         {/* <span className="flex h-8 w-8 justify-center items-center bg-gray-500 text-center rounded-full mr-3">
             {name.charAt(0).toUpperCase()}
@@ -28,4 +31,5 @@ ReceiverCard.propTypes = {
   avatar: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
   timestamp: PropTypes.string.isRequired,
+  isLastMessage: PropTypes.bool.isRequired,
 };
