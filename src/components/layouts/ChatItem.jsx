@@ -1,8 +1,6 @@
 import { useContext } from "react";
 import { ChatContext } from "../../utils/ChatContextProvider";
-// import TopBar from "../ChatItem/TopBar";
-// import ChatMessages from "../ChatItem/ChatMessages";
-import Chat from "../Chat";
+import Chat from "../ChatItem/Chat";
 
 const ChatItem = () => {
   const { activeChatUser } = useContext(ChatContext);

@@ -1,12 +1,17 @@
 import { useState } from "react";
-import ChatMessages from "./ChatItem/ChatMessages";
-import SendMessage from "./ChatItem/SendMessage";
-import TopBar from "./ChatItem/TopBar";
-import messages from "../store/messages";
+import ChatMessages from "./ChatMessages";
+import SendMessage from "./SendMessage";
+import TopBar from "./TopBar";
+import messages from "../../store/messages";
 
 function Chat() {
-  const [message, setMessage] = useState("");
   const [allMessages, setAllMessages] = useState(messages);
+  const [message, setMessage] = useState("");
+  const [isPickerVisible, setIsPickerVisible] = useState(false);
+
+  const onEmojiClickHandler = (emojiObject) => {
+    setMessage(`${message} ${emojiObject.emoji}`);
+  };
 
   const onChangeMessageHandler = (e) => {
     setMessage(e.target.value);
@@ -15,6 +20,9 @@ function Chat() {
   const sendMessageHandler = (e) => {
     e.preventDefault();
 
+    if (message.length === 0) {
+      return;
+    }
     setAllMessages((prevMessages) => [
       ...prevMessages,
       {
@@ -37,6 +45,9 @@ function Chat() {
         onChangeMessageHandler={onChangeMessageHandler}
         message={message}
         sendMessageHandler={sendMessageHandler}
+        onEmojiClick={onEmojiClickHandler}
+        setIsPickerVisible={setIsPickerVisible}
+        isPickerVisible={isPickerVisible}
       />
     </div>
   );
