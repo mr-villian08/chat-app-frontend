@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import Input from "../../components/ui/Input";
 import { useGoogleLogin } from "@react-oauth/google";
-import useApis from "../../hooks/use-apis";
+// import useApis from "../../hooks/use-apis";
+import axios from "axios";
 
 const Login = () => {
   // ? ****************************************************************** login with google ****************************************************************** */
@@ -9,7 +10,17 @@ const Login = () => {
     onSuccess: async (response) => {
       try {
         console.log(response);
-        const result = await useApis.get("auth/login/google", false);
+        const result = await axios.get(
+          "http://127.0.0.1:8000/api/auth/login/google",
+          {
+            token: response.access_token,
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+              "x-api-key": import.meta.env.VITE_APP_AUTH_API_KEY,
+            },
+          }
+        );
         console.log(result);
       } catch (error) {
         console.log(error.message);
