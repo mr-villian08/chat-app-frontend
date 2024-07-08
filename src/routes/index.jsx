@@ -8,12 +8,14 @@ import Chats from "../pages/Chats";
 import Groups from "../pages/Groups";
 import Contacts from "../pages/Contacts";
 import Settings from "../pages/Settings";
+import checkAuthLoader from "../utils/Auth";
 
 const routes = createBrowserRouter([
   {
     path: "/",
     errorElement: <Error />,
     element: <RootLayout />,
+    loader: checkAuthLoader,
     children: [
       {
         index: true,

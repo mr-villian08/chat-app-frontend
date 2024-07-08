@@ -1,7 +1,23 @@
 import { Link } from "react-router-dom";
 import Input from "../../components/ui/Input";
+import { useGoogleLogin } from "@react-oauth/google";
+import useApis from "../../hooks/use-apis";
 
 const Login = () => {
+  // ? ****************************************************************** login with google ****************************************************************** */
+  const googleLoginHandler = useGoogleLogin({
+    onSuccess: async (response) => {
+      try {
+        console.log(response);
+        const result = await useApis.get("auth/login/google", false);
+        console.log(result);
+      } catch (error) {
+        console.log(error.message);
+      }
+    },
+    onError: (error) => console.log(error),
+  });
+
   return (
     <div className="flex items-center justify-center min-h-screen">
       <div className="grid">
@@ -61,7 +77,7 @@ const Login = () => {
               className="flex items-center justify-center mt-5 flex-wrap"
             >
               <button
-                href="#"
+                onClick={() => googleLoginHandler()}
                 className="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1"
               >
                 <img
@@ -122,28 +138,6 @@ const Login = () => {
                 />
               </button>
             </div>
-            {/* <div className="text-gray-500 flex text-center flex-col mt-4 items-center text-sm">
-              <p className="cursor-default">
-                By signing in, you agree to our{" "}
-                <a
-                  className="group text-blue-400 transition-all duration-100 ease-in-out"
-                  href="#"
-                >
-                  <span className="cursor-pointer bg-left-bottom bg-gradient-to-r from-blue-400 to-blue-400 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
-                    Terms{" "}
-                  </span>
-                </a>
-                and{" "}
-                <a
-                  className="group text-blue-400 transition-all duration-100 ease-in-out"
-                  href="#"
-                >
-                  <span className="cursor-pointer bg-left-bottom bg-gradient-to-r from-blue-400 to-blue-400 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
-                    Privacy Policy
-                  </span>
-                </a>
-              </p>
-            </div> */}
           </div>
         </div>
       </div>
