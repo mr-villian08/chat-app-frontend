@@ -9,6 +9,7 @@ import Groups from "../pages/Groups";
 import Contacts from "../pages/Contacts";
 import Settings from "../pages/Settings";
 import checkAuthLoader from "../utils/Auth";
+import { loginAction } from "../utils/Actions";
 
 const routes = createBrowserRouter([
   {
@@ -50,6 +51,7 @@ const routes = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
+        action: loginAction,
       },
       {
         path: "sign-up",
