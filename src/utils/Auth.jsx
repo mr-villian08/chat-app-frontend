@@ -5,6 +5,8 @@ const checkAuthLoader = () => {
   if (token === null) {
     return redirect("/auth/login");
   }
+
+  return token;
 };
 
 export default checkAuthLoader;

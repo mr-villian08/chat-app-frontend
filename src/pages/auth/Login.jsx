@@ -1,11 +1,12 @@
-import { Link, useSubmit } from "react-router-dom";
+import { Link, useNavigation, useSubmit } from "react-router-dom";
 import Input from "../../components/ui/Input";
-import { useGoogleLogin } from "@react-oauth/google";
 import { useFormik } from "formik";
 import { loginSchema } from "../../utils/Schema";
+import ThirdParty from "../../components/auth/ThirdParty";
 
 const Login = () => {
   const submit = useSubmit();
+  const { state } = useNavigation();
 
   // ? **************************************************************** Use of formik  **************************************************************** */
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
@@ -13,40 +14,13 @@ const Login = () => {
       initialValues: {
         usernameOrEmail: "",
         password: "",
+        provider: "",
       },
       validationSchema: loginSchema,
       onSubmit: (values) => {
         submit(values, { method: "POST" });
       },
     });
-
-  // ? ****************************************************************** login with google ****************************************************************** */
-  const googleLoginHandler = useGoogleLogin({
-    onSuccess: async (response) => {
-      try {
-        const result = await fetch(
-          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${response.access_token}`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${response.access_token}`,
-              Accept: "application/json",
-            },
-          }
-        );
-
-        if (!result.ok) {
-          return console.log(result.statusText);
-        }
-
-        const userData = await result.json();
-        submit({ ...userData, provider: "google" }, { method: "POST" });
-      } catch (error) {
-        console.log(error.message);
-      }
-    },
-    onError: (error) => console.log(error),
-  });
 
   return (
     <div className="flex items-center justify-center min-h-screen">
@@ -69,6 +43,7 @@ const Login = () => {
                   onChange={handleChange}
                   placeholder="Username/Email"
                   autoComplete="off"
+                  isError={errors.password && touched.password}
                 />
                 {errors.usernameOrEmail && touched.usernameOrEmail && (
                   <p className="text-red-500">{errors.usernameOrEmail}</p>
@@ -84,17 +59,32 @@ const Login = () => {
                   onChange={handleChange}
                   placeholder="Password"
                   autoComplete="off"
+                  isError={errors.password && touched.password}
                 />
                 {errors.password && touched.password && (
                   <p className="text-red-500">{errors.password}</p>
                 )}
               </div>
-              <button
-                className="bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg !mt-8 p-2 text-white rounded-lg w-full hover:scale-105 hover:from-purple-500 hover:to-blue-500 transition duration-300 ease-in-out"
-                type="submit"
-              >
-                LOG IN
-              </button>
+              <div className="relative">
+                <button
+                  className="bg-gradient-to-r cursor-pointer from-blue-500 to-purple-500 shadow-lg !mt-8 p-2 text-white rounded-lg w-full hover:scale-105 hover:from-purple-500 hover:to-blue-500 transition duration-300 ease-in-out relative disabled:opacity-85 disabled:cursor-auto disabled:pointer-events-none disabled:text-white disabled:font-bold"
+                  type="submit"
+                  disabled={state === "submitting"}
+                >
+                  {state === "submitting" && (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div
+                        className="animate-spin inline-block w-5 h-5 border-4 border-current border-t-transparent text-gray-900 rounded-full"
+                        role="status"
+                        aria-label="loading"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    </div>
+                  )}
+                  LOG IN
+                </button>
+              </div>
             </form>
             <div className="flex flex-col mt-4 items-center justify-center text-sm">
               <h3>
@@ -111,73 +101,7 @@ const Login = () => {
                 </Link>
               </h3>
             </div>
-
-            <div
-              id="third-party-auth"
-              className="flex items-center justify-center mt-5 flex-wrap"
-            >
-              <button
-                onClick={() => googleLoginHandler()}
-                className="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1"
-              >
-                <img
-                  className="max-w-[25px]"
-                  src="https://ucarecdn.com/8f25a2ba-bdcf-4ff1-b596-088f330416ef/"
-                  alt="Google"
-                />
-              </button>
-              <button
-                href="#"
-                className="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1"
-              >
-                <img
-                  className="max-w-[25px]"
-                  src="https://ucarecdn.com/95eebb9c-85cf-4d12-942f-3c40d7044dc6/"
-                  alt="Linkedin"
-                />
-              </button>
-              <button
-                href="#"
-                className="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1"
-              >
-                <img
-                  className="max-w-[25px] filter dark:invert"
-                  src="https://ucarecdn.com/be5b0ffd-85e8-4639-83a6-5162dfa15a16/"
-                  alt="Github"
-                />
-              </button>
-              <button
-                href="#"
-                className="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1"
-              >
-                <img
-                  className="max-w-[25px]"
-                  src="https://ucarecdn.com/6f56c0f1-c9c0-4d72-b44d-51a79ff38ea9/"
-                  alt="Facebook"
-                />
-              </button>
-              <button
-                href="#"
-                className="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1"
-              >
-                <img
-                  className="max-w-[25px] dark:gray-100"
-                  src="https://ucarecdn.com/82d7ca0a-c380-44c4-ba24-658723e2ab07/"
-                  alt="twitter"
-                />
-              </button>
-
-              <button
-                href="#"
-                className="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1"
-              >
-                <img
-                  className="max-w-[25px]"
-                  src="https://ucarecdn.com/3277d952-8e21-4aad-a2b7-d484dad531fb/"
-                  alt="apple"
-                />
-              </button>
-            </div>
+            <ThirdParty />
           </div>
         </div>
       </div>
