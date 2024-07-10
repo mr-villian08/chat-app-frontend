@@ -1,12 +1,21 @@
-import { Link, useNavigation, useSubmit } from "react-router-dom";
+import { Link, useNavigate, useNavigation, useSubmit } from "react-router-dom";
 import Input from "../../components/ui/Input";
 import { useFormik } from "formik";
 import { loginSchema } from "../../utils/Schema";
 import ThirdParty from "../../components/auth/ThirdParty";
+import { useEffect } from "react";
 
 const Login = () => {
   const submit = useSubmit();
   const { state } = useNavigation();
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (token !== null) {
+      navigate("/");
+    }
+  }, [token, navigate]);
 
   // ? **************************************************************** Use of formik  **************************************************************** */
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =

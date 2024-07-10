@@ -51,7 +51,7 @@ const Sidebar = () => {
       </div>
       <ul className="flex flex-col justify-center items-center gap-10">
         <li className="nav-item">
-          <button className={commonClasses}>
+          <button className={commonClasses} type="button">
             <img src={sun} alt="Theme switch" className="h-[24px]" />
             <span className="absolute opacity-0 group-hover:opacity-100 group-hover:dark:text-white group-hover:text-sm group-hover:text-black group-hover:-translate-y-10 duration-700">
               Light
@@ -59,15 +59,25 @@ const Sidebar = () => {
           </button>
         </li>
         <li className="nav-item">
-          <img
-            src={userIcon}
-            alt="User Icon"
-            height="30px"
-            width="30px"
-            className="border rounded-full object-cover text-gray-500"
-          />
+          {/* <div className="relative">
+            <img
+              src={userIcon}
+              alt="User Icon"
+              height="30px"
+              width="30px"
+              className="group flex justify-center p-2 rounded-md drop-shadow-xl text-white font-semibold object-cover cursor-pointer hover:translate-y-3 hover:rounded-[50%] transition-all duration-500 hover:from-[#331029] hover:to-[#310413] hover:bg-gradient-to-r from-gray-800 to-black"
+            />
+            <span className="absolute opacity-0 group-hover:opacity-100 group-hover:dark:text-white group-hover:text-sm group-hover:text-black group-hover:-translate-y-10 duration-700">
+              User
+            </span>
+          </div> */}
+          <button className={`${commonClasses}`} type="button">
+            <img src={userIcon} alt="User Icon" height="40px" width="40px" />
+            <span className="absolute opacity-0 group-hover:opacity-100 group-hover:dark:text-white group-hover:text-sm group-hover:text-black group-hover:-translate-y-10 duration-700">
+              User
+            </span>
+          </button>
         </li>
-        {/* <li className="nav-item">hello</li> */}
       </ul>
     </div>
   );
