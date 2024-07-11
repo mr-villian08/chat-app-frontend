@@ -9,7 +9,7 @@ import Groups from "../pages/Groups";
 import Contacts from "../pages/Contacts";
 import Settings from "../pages/Settings";
 import checkAuthLoader from "../utils/Auth";
-import { loginAction } from "../utils/Actions";
+import { loginAction, logoutAction } from "../utils/Actions";
 
 const routes = createBrowserRouter([
   {
@@ -41,6 +41,10 @@ const routes = createBrowserRouter([
       {
         path: "settings",
         element: <Settings />,
+      },
+      {
+        path: "logout",
+        action: logoutAction,
       },
     ],
   },

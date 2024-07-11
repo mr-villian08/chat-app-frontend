@@ -6,12 +6,6 @@ const Header = () => {
       <h1 className="font-semibold text-xl mb-2">Chats</h1>
       <div className="mt-6">
         <form className="w-full">
-          {/* <label
-            className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
-            htmlFor="default-search"
-          >
-            Search
-          </label> */}
           <div className="relative">
             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
               <img src={searchIcon} alt="Search" height={20} width={20} />

@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import icons from "../../store/icons";
-import userIcon from "../../assets/images/icons/user-line.svg";
 import sun from "../../assets/images/icons/sun.svg";
+import UserProfileMenu from "./UserProfileMenu";
 const commonClasses =
   "group flex justify-center p-2 rounded-md drop-shadow-xl text-white font-semibold hover:translate-y-3 hover:rounded-[50%] transition-all duration-500 hover:from-[#331029] hover:to-[#310413] hover:bg-gradient-to-r from-gray-800 to-black";
 
@@ -71,12 +71,13 @@ const Sidebar = () => {
               User
             </span>
           </div> */}
-          <button className={`${commonClasses}`} type="button">
+          {/* <button className={`${commonClasses}`} type="button">
             <img src={userIcon} alt="User Icon" height="40px" width="40px" />
             <span className="absolute opacity-0 group-hover:opacity-100 group-hover:dark:text-white group-hover:text-sm group-hover:text-black group-hover:-translate-y-10 duration-700">
               User
             </span>
-          </button>
+          </button> */}
+          <UserProfileMenu classes={commonClasses} />
         </li>
       </ul>
     </div>

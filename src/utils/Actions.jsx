@@ -15,10 +15,36 @@ export const loginAction = async ({ request }) => {
     if (result.status) {
       localStorage.setItem("user", JSON.stringify(result.data.user));
       localStorage.setItem("token", result.data.token);
+      toast.success(result.message, {
+        className: "dark:bg-gray-800 dark:text-white",
+        duration: 2000,
+      });
       return redirect("/");
     }
 
     throw new Error(result.message);
+  } catch (error) {
+    return toast.error(error.message, {
+      className: "dark:bg-gray-800 dark:text-white",
+      duration: 2000,
+    });
+  }
+};
+
+// ? ************************************************************ Logout ************************************************************ */
+export const logoutAction = async () => {
+  try {
+    const result = await useApis.post("auth/logout", true);
+
+    if (result.status) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      toast.success(result.message, {
+        className: "dark:bg-gray-800 dark:text-white",
+        duration: 2000,
+      });
+      return redirect("/auth/login");
+    }
   } catch (error) {
     return toast.error(error.message, {
       className: "dark:bg-gray-800 dark:text-white",
