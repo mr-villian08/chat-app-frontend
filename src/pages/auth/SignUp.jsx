@@ -1,7 +1,35 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigation, useSubmit } from "react-router-dom";
 import Input from "../../components/ui/Input";
+import { useFormik } from "formik";
+import { signUpSchema } from "../../utils/Schema";
+import ThirdParty from "../../components/auth/ThirdParty";
+
+const INITIAL_VALUES = {
+  first_name: "",
+  last_name: "",
+  username: "",
+  email: "",
+  phone: "",
+  password: "",
+  confirm_password: "",
+  provider: "",
+};
 
 const SignUp = () => {
+  const submit = useSubmit();
+  const { state } = useNavigation();
+
+  // ? ***************************************************************************************** Use of formik ***************************************************************************************** */
+  const { values, handleBlur, handleChange, touched, errors, handleSubmit } =
+    useFormik({
+      initialValues: INITIAL_VALUES,
+      validationSchema: signUpSchema,
+      onSubmit: (values) => {
+        submit(values, { method: "POST" });
+      },
+    });
+
+  // ? ***************************************************************************************** Render Component ***************************************************************************************** */
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900">
       <div className="grid gap-8 w-[550px]">
@@ -13,21 +41,26 @@ const SignUp = () => {
             <h1 className="pt-4 pb-4 font-bold text-4xl dark:text-gray-400 text-center cursor-default">
               Sign Up
             </h1>
-            <form action="#" method="post" className="grid gap-4">
+            <form className="grid gap-4" onSubmit={handleSubmit}>
               <div className="grid grid-cols-2 gap-4">
                 <Input
                   id="first-name"
                   name="first_name"
                   placeholder="First Name"
-                  isRequired
                   autoComplete="off"
+                  value={values.first_name}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  isError={errors.first_name && touched.first_name}
+                  errors={errors}
                 />
                 <Input
                   id="last-name"
                   name="last_name"
                   placeholder="Last Name"
-                  isRequired
                   autoComplete="off"
+                  value={values.last_name}
+                  onChange={handleChange}
                 />
               </div>
               <div>
@@ -35,8 +68,12 @@ const SignUp = () => {
                   id="username"
                   name="username"
                   placeholder="Username"
-                  isRequired
                   autoComplete="off"
+                  value={values.username}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  isError={errors.username && touched.username}
+                  errors={errors}
                 />
               </div>
               <div>
@@ -44,8 +81,25 @@ const SignUp = () => {
                   id="email"
                   name="email"
                   placeholder="Email"
-                  isRequired
                   autoComplete="off"
+                  value={values.email}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  isError={errors.email && touched.email}
+                  errors={errors}
+                />
+              </div>
+              <div>
+                <Input
+                  id="phone"
+                  name="phone"
+                  placeholder="Phone"
+                  autoComplete="off"
+                  value={values.phone}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  isError={errors.phone && touched.phone}
+                  errors={errors}
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -55,7 +109,11 @@ const SignUp = () => {
                   type="password"
                   placeholder="Password"
                   autoComplete="off"
-                  isRequired
+                  value={values.password}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  isError={errors.password && touched.password}
+                  errors={errors}
                 />
                 <Input
                   id="confirm-password"
@@ -63,96 +121,50 @@ const SignUp = () => {
                   type="password"
                   placeholder="Confirm Password"
                   autoComplete="off"
-                  isRequired
+                  value={values.confirm_password}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  isError={errors.confirm_password && touched.confirm_password}
+                  errors={errors}
                 />
               </div>
-              <button
-                className="bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg mt-4 p-2 text-white rounded-lg w-full hover:scale-105 hover:from-purple-500 hover:to-blue-500 transition duration-300 ease-in-out"
-                type="submit"
-              >
-                SIGN UP
-              </button>
+              <div className="relative">
+                <button
+                  className="bg-gradient-to-r cursor-pointer from-blue-500 to-purple-500 shadow-lg !mt-8 p-2 text-white rounded-lg w-full hover:scale-105 hover:from-purple-500 hover:to-blue-500 transition duration-300 ease-in-out relative disabled:opacity-85 disabled:cursor-auto disabled:pointer-events-none disabled:text-white disabled:font-bold"
+                  type="submit"
+                  disabled={state === "submitting"}
+                >
+                  {state === "submitting" && (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div
+                        className="animate-spin inline-block w-5 h-5 border-4 border-current border-t-transparent text-gray-900 rounded-full"
+                        role="status"
+                        aria-label="loading"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    </div>
+                  )}
+                  SIGN UP
+                </button>
+              </div>
             </form>
             <div className="flex flex-col mt-4 items-center justify-center text-sm">
               <h3>
                 <span className="cursor-default dark:text-gray-300">
-                  Have an account?
+                  Already Have an account?
                 </span>
                 <Link
                   to="/auth/login"
                   className="group text-blue-400 transition-all duration-100 ease-in-out"
                 >
                   <span className="bg-left-bottom ml-1 bg-gradient-to-r from-blue-400 to-blue-400 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
-                    Log In
+                    Log in
                   </span>
                 </Link>
               </h3>
             </div>
-            <div
-              id="third-party-auth"
-              className="flex items-center justify-center mt-4 flex-wrap"
-            >
-              <button
-                href="#"
-                className="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1"
-              >
-                <img
-                  className="max-w-[25px]"
-                  src="https://ucarecdn.com/8f25a2ba-bdcf-4ff1-b596-088f330416ef/"
-                  alt="Google"
-                />
-              </button>
-              <button
-                href="#"
-                className="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1"
-              >
-                <img
-                  className="max-w-[25px]"
-                  src="https://ucarecdn.com/95eebb9c-85cf-4d12-942f-3c40d7044dc6/"
-                  alt="Linkedin"
-                />
-              </button>
-              <button
-                href="#"
-                className="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1"
-              >
-                <img
-                  className="max-w-[25px] filter dark:invert"
-                  src="https://ucarecdn.com/be5b0ffd-85e8-4639-83a6-5162dfa15a16/"
-                  alt="Github"
-                />
-              </button>
-              <button
-                href="#"
-                className="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1"
-              >
-                <img
-                  className="max-w-[25px]"
-                  src="https://ucarecdn.com/6f56c0f1-c9c0-4d72-b44d-51a79ff38ea9/"
-                  alt="Facebook"
-                />
-              </button>
-              <button
-                href="#"
-                className="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1"
-              >
-                <img
-                  className="max-w-[25px] dark:gray-100"
-                  src="https://ucarecdn.com/82d7ca0a-c380-44c4-ba24-658723e2ab07/"
-                  alt="twitter"
-                />
-              </button>
-              <button
-                href="#"
-                className="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1"
-              >
-                <img
-                  className="max-w-[25px]"
-                  src="https://ucarecdn.com/3277d952-8e21-4aad-a2b7-d484dad531fb/"
-                  alt="apple"
-                />
-              </button>
-            </div>
+            <ThirdParty />
             <div className="text-gray-500 flex text-center flex-col mt-4 items-center text-sm">
               <p className="cursor-default">
                 By signing in, you agree to our{" "}

@@ -9,7 +9,14 @@ import Groups from "../pages/Groups";
 import Contacts from "../pages/Contacts";
 import Settings from "../pages/Settings";
 import checkAuthLoader from "../utils/Auth";
-import { loginAction, logoutAction } from "../utils/Actions";
+import {
+  addContactAction,
+  loginAction,
+  logoutAction,
+  profileAction,
+  signUpAction,
+} from "../utils/Actions";
+import { chatsLoader, contactsLoader, profileLoader } from "../utils/Loaders";
 
 const routes = createBrowserRouter([
   {
@@ -25,10 +32,13 @@ const routes = createBrowserRouter([
       {
         path: "profile",
         element: <Profile />,
+        loader: profileLoader,
+        action: profileAction,
       },
       {
         path: "chats",
         element: <Chats />,
+        loader: chatsLoader,
       },
       {
         path: "groups",
@@ -37,6 +47,8 @@ const routes = createBrowserRouter([
       {
         path: "contacts",
         element: <Contacts />,
+        loader: contactsLoader,
+        action: addContactAction,
       },
       {
         path: "settings",
@@ -60,6 +72,7 @@ const routes = createBrowserRouter([
       {
         path: "sign-up",
         element: <SignUp />,
+        action: signUpAction,
       },
     ],
   },

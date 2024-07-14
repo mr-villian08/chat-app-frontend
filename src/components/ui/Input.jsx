@@ -10,17 +10,22 @@ const Input = ({
   ...restProps
 }) => {
   return (
-    <input
-      id={id}
-      className={`border dark:bg-indigo-700 dark:text-gray-300 p-3 shadow-md placeholder:text-base w-full border-gray-300 rounded-lg focus:scale-105 ease-in-out duration-300 ${
-        isError ? "border-red-500" : "border-gray-300 dark:border-gray-700"
-      }`}
-      type={type}
-      name={name}
-      placeholder={placeholder}
-      required={isRequired}
-      {...restProps}
-    />
+    <div className="flex flex-col">
+      <input
+        id={id}
+        className={`border dark:bg-indigo-700 dark:text-gray-300 p-3 shadow-md placeholder:text-base w-full border-gray-300 rounded-lg focus:scale-105 ease-in-out duration-300 ${
+          isError ? "border-red-500" : "border-gray-300 dark:border-gray-700"
+        }`}
+        type={type}
+        name={name}
+        placeholder={placeholder}
+        required={isRequired}
+        {...restProps}
+      />
+      {isError && (
+        <p className="text-red-500 mt-1 text-sm">{restProps.errors[name]}</p>
+      )}
+    </div>
   );
 };
 

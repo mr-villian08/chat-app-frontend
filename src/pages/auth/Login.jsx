@@ -53,10 +53,8 @@ const Login = () => {
                   placeholder="Username/Email"
                   autoComplete="off"
                   isError={errors.password && touched.password}
+                  errors={errors}
                 />
-                {errors.usernameOrEmail && touched.usernameOrEmail && (
-                  <p className="text-red-500">{errors.usernameOrEmail}</p>
-                )}
               </div>
               <div>
                 <Input
@@ -69,10 +67,8 @@ const Login = () => {
                   placeholder="Password"
                   autoComplete="off"
                   isError={errors.password && touched.password}
+                  errors={errors}
                 />
-                {errors.password && touched.password && (
-                  <p className="text-red-500">{errors.password}</p>
-                )}
               </div>
               <div className="relative">
                 <button

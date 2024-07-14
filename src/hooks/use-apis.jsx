@@ -51,7 +51,7 @@ export default class useApis {
     try {
       const response = await fetch(`${this.baseUrl}${url}`, {
         method: "PATCH",
-        data: JSON.stringify(formData),
+        body: JSON.stringify(formData),
         headers: this.config(url, isToken, headers),
       });
 
