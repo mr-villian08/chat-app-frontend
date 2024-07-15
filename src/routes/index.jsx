@@ -28,6 +28,7 @@ const routes = createBrowserRouter([
       {
         index: true,
         element: <Chats />,
+        loader: chatsLoader,
       },
       {
         path: "profile",
