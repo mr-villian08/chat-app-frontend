@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
-// import moreDownIcon from "../../assets/images/icons/more-down.svg";
 import ContactMenu from "./ContactMenu";
 
 const ContactListItem = ({ contacts, letter }) => {
@@ -9,6 +8,7 @@ const ContactListItem = ({ contacts, letter }) => {
       <h2 className="text-green-300 font-bold mt-4">{letter}</h2>
       {contacts[letter].map((contact) => (
         <div key={contact.id} className="flex items-center justify-between">
+          {/* <form onSubmit={}></form> */}
           <NavLink
             to={`/chats`}
             className="flex justify-between items-center py-2"

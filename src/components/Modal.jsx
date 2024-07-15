@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 import closeIcon from "../assets/images/icons/close.svg";
 import { useActionData } from "react-router-dom";
 
-const Modal = forwardRef(function Modal({ Component }, ref) {
+const Modal = forwardRef(function Modal({ title, Component }, ref) {
   const dialog = useRef();
   const actionData = useActionData();
   useImperativeHandle(ref, () => ({
@@ -34,7 +34,7 @@ const Modal = forwardRef(function Modal({ Component }, ref) {
         <div className="bg-gray-800 p-6 rounded-lg shadow-lg max-w-sm w-full animate-zoom-in-zoom-out">
           <div className="flex items-center text-center justify-between ">
             <h2 className="dark:text-white text-lg font-semibold mb-4">
-              Add Contacts
+              {title}
             </h2>
             <img
               src={closeIcon}
@@ -52,6 +52,7 @@ const Modal = forwardRef(function Modal({ Component }, ref) {
 });
 
 Modal.propTypes = {
+  title: PropTypes.string.isRequired,
   Component: PropTypes.func.isRequired,
 };
 

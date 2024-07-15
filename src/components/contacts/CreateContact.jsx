@@ -19,9 +19,16 @@ const CreateContact = ({ onClose }) => {
       },
     });
 
+  const submitHandler = (e) => {
+    console.log("herer");
+    e.preventDefault();
+    handleSubmit(e);
+  };
+  console.log(errors);
+
   // ? ***************************************************************************************** Render the form ***************************************************************************************** */
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={submitHandler}>
       <div className="mb-4">
         <input
           className={`block w-full p-2 text-lg text-gray-900 border rounded-sm bg-gray-50 outline-none dark:bg-gray-900  dark:placeholder-gray-400 dark:text-white ${

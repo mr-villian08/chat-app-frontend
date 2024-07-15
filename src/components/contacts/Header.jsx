@@ -13,7 +13,7 @@ const Header = () => {
 
   return (
     <>
-      <Modal Component={CreateContact} ref={dialog} />
+      <Modal title="Add Contacts" Component={CreateContact} ref={dialog} />
       <div className="px-2">
         <div className="flex items-center justify-between">
           <h1 className="font-semibold text-xl mb-2">Contacts</h1>
