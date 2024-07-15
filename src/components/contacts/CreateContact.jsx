@@ -36,6 +36,7 @@ const CreateContact = ({ onClose }) => {
           value={values.emailPhoneUsername}
           onChange={handleChange}
           onBlur={handleBlur}
+          autoComplete="off"
         />
         {errors.emailPhoneUsername && touched.emailPhoneUsername && (
           <p className="text-red-500 mt-2">{errors.emailPhoneUsername}</p>

@@ -119,8 +119,8 @@ export const addContactAction = async ({ request }) => {
     throw new Error(result.message);
   } catch (error) {
     return toast.error(error.message, {
-      className: "dark:bg-gray-800 dark:text-white z-10",
-      duration: 2000,
+      className: "dark:bg-gray-800 dark:text-white !z-10",
+      duration: 100000,
     });
   }
 };
