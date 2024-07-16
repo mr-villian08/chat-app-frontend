@@ -31,7 +31,7 @@ const Modal = forwardRef(function Modal({ title, Component }, ref) {
   return createPortal(
     <dialog ref={dialog} className="border-none rounded-lg p-8 bg-gray-800">
       <div className="fixed inset-0 flex items-center justify-center bg-black z-1 bg-opacity-50">
-        <div className="bg-gray-800 p-6 rounded-lg shadow-lg max-w-sm w-full animate-zoom-in-zoom-out">
+        <div className="bg-gray-800 p-6 rounded-lg shadow-lg max-w-sm w-full animate-zoom-in">
           <div className="flex items-center text-center justify-between ">
             <h2 className="dark:text-white text-lg font-semibold mb-4">
               {title}

@@ -6,6 +6,7 @@ import "simplebar-react/dist/simplebar.min.css";
 
 const ChatMessages = ({ messages }) => {
   const messagesEndRef = useRef(null);
+  console.log(messages);
 
   useEffect(() => {
     messagesEndRef.current.scrollIntoView({
@@ -16,12 +17,12 @@ const ChatMessages = ({ messages }) => {
 
   return (
     <div className="relative h-screen">
-      <div>
-        <SimpleBar className="h-[calc(100vh-170px)] bg-gray-950 p-6 lg:p-4 pb-20">
-          <div className="border-b border-gray-700 mb-6 pb-2 text-center text-gray-400">
-            <span>Today</span>
-          </div>
-          {messages.map((msg, index) => (
+      <SimpleBar className="h-[calc(100vh-170px)] bg-gray-950 p-6 lg:p-4 pb-20">
+        {/* <div className="border-b border-gray-700 mb-6 pb-2 text-center text-gray-400">
+          <span>Today</span>
+        </div> */}
+        {messages.length > 0 &&
+          messages.map((msg, index) => (
             <ChatMessageCard
               key={msg.id}
               message={msg.message}
@@ -32,9 +33,13 @@ const ChatMessages = ({ messages }) => {
               isLastMessage={messages.length === index + 1}
             />
           ))}
-          <div ref={messagesEndRef} />
-        </SimpleBar>
-      </div>
+        <div ref={messagesEndRef} />
+      </SimpleBar>
+      {messages.length === 0 && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <p className="text-gray-400">Let&apos;s start the messages</p>
+        </div>
+      )}
     </div>
   );
 };

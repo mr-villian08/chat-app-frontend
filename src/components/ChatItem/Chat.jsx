@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import ChatMessages from "./ChatMessages";
 import SendMessage from "./SendMessage";
 import TopBar from "./TopBar";
-import messages from "../../store/messages";
+// import messages from "../../store/messages";
+import { ChatContext } from "../../utils/ChatContextProvider";
 
 function Chat() {
-  const [allMessages, setAllMessages] = useState(messages);
+  const { activeChatUser } = useContext(ChatContext);
+  // const [allMessages, setAllMessages] = useState(activeChatUser.messages);
+  // console.log(allMessages);
   const [message, setMessage] = useState("");
   const [isPickerVisible, setIsPickerVisible] = useState(false);
 
@@ -23,24 +26,28 @@ function Chat() {
     if (message.length === 0) {
       return;
     }
-    setAllMessages((prevMessages) => [
-      ...prevMessages,
-      {
-        id: messages.at(-1).id + 1,
-        message: message,
-        timestamp: "10:22PM",
-        isSender: true,
-        avatar: "",
-        name: "Test",
-      },
-    ]);
+    // setAllMessages((prevMessages) => [
+    //   ...prevMessages,
+    //   {
+    //     id: messages.at(-1).id + 1,
+    //     message: message,
+    //     timestamp: "10:22PM",
+    //     isSender: true,
+    //     avatar: "",
+    //     name: "Test",
+    //   },
+    // ]);
     setMessage("");
   };
 
   return (
     <div className="flex flex-col h-screen justify-between">
-      <TopBar />
-      <ChatMessages messages={allMessages} />
+      <TopBar
+        name={activeChatUser.participant.user.name}
+        status={activeChatUser.participant.user.status}
+        image={activeChatUser.participant.user.image}
+      />
+      <ChatMessages messages={activeChatUser.messages} />
       <SendMessage
         onChangeMessageHandler={onChangeMessageHandler}
         message={message}

@@ -61,6 +61,6 @@ const MultiCarousel = ({ data, Component }) => {
 export default MultiCarousel;
 
 MultiCarousel.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.object.isRequired,
   Component: PropTypes.func.isRequired,
 };
