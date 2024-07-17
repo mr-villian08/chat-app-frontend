@@ -20,7 +20,6 @@ const CreateContact = ({ onClose }) => {
     });
 
   const submitHandler = (e) => {
-    console.log("herer");
     e.preventDefault();
     handleSubmit(e);
   };
