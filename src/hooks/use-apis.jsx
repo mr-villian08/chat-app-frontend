@@ -18,7 +18,6 @@ export default class useApis {
       });
 
       if (!response.ok) {
-        console.log(response.statusText, "on use api");
         throw new Error("Something went wrong. Try again!");
       }
 

@@ -6,7 +6,6 @@ import "simplebar-react/dist/simplebar.min.css";
 
 const ChatMessages = ({ messages }) => {
   const messagesEndRef = useRef(null);
-  console.log(messages);
 
   useEffect(() => {
     messagesEndRef.current.scrollIntoView({
@@ -22,17 +21,20 @@ const ChatMessages = ({ messages }) => {
           <span>Today</span>
         </div> */}
         {messages.length > 0 &&
-          messages.map((msg, index) => (
-            <ChatMessageCard
-              key={msg.id}
-              message={msg.message}
-              timestamp={msg.timestamp}
-              isSender={msg.isSender}
-              avatar={msg.avatar}
-              name={msg.name}
-              isLastMessage={messages.length === index + 1}
-            />
-          ))}
+          messages.map((msg, index) => {
+            console.log(msg);
+            return (
+              <ChatMessageCard
+                key={msg.id}
+                message={msg.content}
+                timestamp={msg.timestamp}
+                isSender={msg.is_sender}
+                avatar={msg.avatar}
+                name={msg.user.name}
+                isLastMessage={messages.length === index + 1}
+              />
+            );
+          })}
         <div ref={messagesEndRef} />
       </SimpleBar>
       {messages.length === 0 && (
