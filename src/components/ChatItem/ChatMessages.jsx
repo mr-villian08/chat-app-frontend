@@ -22,14 +22,13 @@ const ChatMessages = ({ messages }) => {
         </div> */}
         {messages.length > 0 &&
           messages.map((msg, index) => {
-            console.log(msg);
             return (
               <ChatMessageCard
                 key={msg.id}
                 message={msg.content}
-                timestamp={msg.timestamp}
+                timestamp={msg.created_at}
                 isSender={msg.is_sender}
-                avatar={msg.avatar}
+                avatar={msg.user.image}
                 name={msg.user.name}
                 isLastMessage={messages.length === index + 1}
               />

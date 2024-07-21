@@ -15,6 +15,7 @@ const ChatMessageCard = ({
       {isSender && (
         <SenderCard
           name={name}
+          avatar={avatar}
           message={message}
           timestamp={timestamp}
           isLastMessage={isLastMessage}
@@ -74,7 +75,7 @@ ChatMessageCard.propTypes = {
   message: PropTypes.string.isRequired,
   timestamp: PropTypes.string.isRequired,
   isSender: PropTypes.bool.isRequired,
-  avatar: PropTypes.string.isRequired,
+  avatar: PropTypes.string,
   name: PropTypes.string.isRequired,
   isLastMessage: PropTypes.bool.isRequired,
 };

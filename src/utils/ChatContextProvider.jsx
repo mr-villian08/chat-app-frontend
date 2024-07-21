@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { createContext, useState } from "react";
-import recentChats from "../store/home/recentChats";
+// import recentChats from "../store/home/recentChats";
 import toast from "react-hot-toast";
 import useApis from "../hooks/use-apis";
 
@@ -14,13 +14,27 @@ const ChatContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
 
   // ? ********************************************************** Active the chat user from the recent chats ********************************************************** */
-  const onActiveChatUserHandler = (id) => {
-    setUser(() => recentChats.find((recentChat) => recentChat.id === id));
+  const onActiveChatUserHandler = async (id) => {
+    console.log(id);
+    try {
+      const result = await useApis.get(`messages/${id}`, true);
+      if (result.status) {
+        console.log(result.data);
+        return setUser(result.data);
+      }
+
+      throw new Error(result.message);
+    } catch (error) {
+      return toast.error(error.message, {
+        className: "dark:bg-gray-800 dark:text-white",
+      });
+    }
   };
 
   // ? ********************************************************** Start the conversation from the contacts ********************************************************** */
   const createChatRoomHandler = async (id) => {
     try {
+      console.log(id);
       const result = await useApis.post("chats", true, { contact_user_id: id });
       if (result.status) {
         return setUser(result.data);

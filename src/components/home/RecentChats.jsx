@@ -1,7 +1,10 @@
-import recentChats from "../../store/home/recentChats";
+import { Suspense } from "react";
 import RecentChatsCard from "../cards/RecentChatsCard";
+import { Await, useLoaderData } from "react-router-dom";
 
 const RecentChats = () => {
+  const { recentChats } = useLoaderData();
+
   return (
     <div className="px-2 relative">
       <h5 className="font-semibold mb-3">Recent</h5>
@@ -10,9 +13,20 @@ const RecentChats = () => {
           className="h-[645px] overflow-y-auto"
           style={{ scrollbarWidth: "none" }}
         >
-          {recentChats.map((recentChat) => (
-            <RecentChatsCard key={recentChat.id} recentChat={recentChat} />
-          ))}
+          <Suspense fallback={<p>Loading...</p>}>
+            <Await resolve={recentChats}>
+              {(loadedRecentChats) =>
+                loadedRecentChats.map((recentChat) => (
+                  <RecentChatsCard
+                    key={recentChat.id}
+                    recentChatId={recentChat.id}
+                    recentChat={recentChat.last_message}
+                    contactUser={recentChat.contact_user}
+                  />
+                ))
+              }
+            </Await>
+          </Suspense>
         </ul>
       </div>
     </div>

@@ -56,6 +56,24 @@ const activeUsers = async () => {
   }
 };
 
+// ? ********************************************************************* Chats/Recent chats ********************************************************************* */
+// get the active users according to the user login
+const recentChats = async () => {
+  try {
+    const result = await useApis.get("chats", true);
+    if (result.status) {
+      return result.data;
+    }
+
+    throw new Error(result.message);
+  } catch (error) {
+    return toast.error(error.message, {
+      className: "dark:bg-gray-800 dark:text-white",
+      duration: 2000,
+    });
+  }
+};
+
 // ? ********************************************************************* Profile Loaders ********************************************************************* */
 export const profileLoader = () => {
   return defer({
@@ -74,5 +92,6 @@ export const contactsLoader = () => {
 export const chatsLoader = () => {
   return defer({
     activeUsers: activeUsers(),
+    recentChats: recentChats(),
   });
 };
