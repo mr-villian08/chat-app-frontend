@@ -34,7 +34,6 @@ const ChatContextProvider = ({ children }) => {
   // ? ********************************************************** Start the conversation from the contacts ********************************************************** */
   const createChatRoomHandler = async (id) => {
     try {
-      console.log(id);
       const result = await useApis.post("chats", true, { contact_user_id: id });
       if (result.status) {
         return setUser(result.data);

@@ -56,14 +56,15 @@ function Chat() {
       };
       const result = await useApis.post("messages", true, formData);
       if (result.status) {
+        console.log(result.data);
         // await showMessages();
-        if (echo) {
-          echo.private(`chat.${userId}`).listen("MessageSent", (event) => {
-            const message = { ...event.message, is_sender: event.is_sender };
-            console.log(message, "here i am");
-            setAllMessages((prevMessages) => [...prevMessages, message]);
-          });
-        }
+        // if (echo) {
+        //   echo.private(`chat.${userId}`).listen("MessageSent", (event) => {
+        //     const message = { ...event.message, is_sender: event.is_sender };
+        //     console.log(message, "here i am");
+        //     setAllMessages((prevMessages) => [...prevMessages, message]);
+        //   });
+        // }
         // console.log("here");
         // echo.private(`message`).listen("MessageSent", (e) => {
         //   console.log("here i am");
@@ -84,37 +85,19 @@ function Chat() {
   };
 
   useEffect(() => {
-    const showMessages = async () => {
-      try {
-        const result = await useApis.get(`messages/${activeChatUser.id}`);
-        if (result.status) {
-          setAllMessages(result.data);
-        } else {
-          throw new Error(result.message);
-        }
-      } catch (error) {
-        toast.error(error.message, {
-          className: "dark:bg-gray-800 dark:text-white",
-        });
-      }
-    };
-    showMessages();
     if (echo) {
       echo
         .private(`chat.${activeChatUser.id}`)
-        .listen("MessageEvent", (event) => {
-          const message = { ...event.message, is_sender: event.is_sender };
+        .listen("MessageSent", (event) => {
+          // console.log(event);
+          const message = {
+            ...event.message,
+            is_sender: event.message.user_id === userId,
+          };
           setAllMessages((prevMessages) => [...prevMessages, message]);
         });
     }
-  }, [echo, allMessages]);
-  // useEffect(() => {
-  //   echo.private(`message`).listen("MessageSent", (e) => {
-  //     console.log("here i am");
-  //     // setMessages((prevMessages) => [...prevMessages, e.message]);
-  //     console.log(e);
-  //   });
-  // }, []);
+  }, [echo, activeChatUser.id, userId]);
 
   // ? ***************************************************************************** Render ***************************************************************************** */
   return (

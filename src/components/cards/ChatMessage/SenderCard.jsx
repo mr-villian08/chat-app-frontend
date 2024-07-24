@@ -7,8 +7,12 @@ const SenderCard = ({ name, avatar, message, timestamp, isLastMessage }) => {
       id={`${isLastMessage ? "here-id" : undefined}`}
     >
       <div className="max-w-xs bg-gray-700 p-3 rounded-lg">
-        <div>{message}</div>
-        <div className="text-xs text-gray-400 text-end mt-2">{timestamp}</div>
+        <div>
+          <span>{message}</span>
+          <span className="flex-row text-[10px] text-gray-400 text-start items-start">
+            {timestamp}
+          </span>
+        </div>
       </div>
       <div className="flex items-end">
         {avatar === null && (
