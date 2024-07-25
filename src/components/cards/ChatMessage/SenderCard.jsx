@@ -9,7 +9,7 @@ const SenderCard = ({ name, avatar, message, timestamp, isLastMessage }) => {
       <div className="max-w-xs bg-gray-700 p-3 rounded-lg">
         <div>
           <span>{message}</span>
-          <span className="flex-row text-[10px] text-gray-400 text-start items-start">
+          <span className="flex-row float-right mt-2 ml-2 text-[10px] text-gray-400 text-end items-end">
             {timestamp}
           </span>
         </div>
