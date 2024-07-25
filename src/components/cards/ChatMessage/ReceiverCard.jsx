@@ -23,7 +23,7 @@ const ReceiverCard = ({ name, avatar, message, timestamp, isLastMessage }) => {
       <div className="max-w-xs bg-green-700 p-3 rounded-lg">
         <div>
           <span>{message}</span>
-          <span className="flex-row float-right mt-2 ml-2 text-[10px] text-gray-700 text-end items-end">
+          <span className="flex-row float-right mt-2 ml-2 text-[10px] text-gray-950 text-end items-end">
             {timestamp}
           </span>
         </div>

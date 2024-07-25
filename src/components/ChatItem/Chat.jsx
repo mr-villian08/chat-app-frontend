@@ -56,7 +56,7 @@ function Chat() {
       };
       const result = await useApis.post("messages", true, formData);
       if (result.status) {
-        console.log(result.data);
+        // console.log(result.data);
         // await showMessages();
         // if (echo) {
         //   echo.private(`chat.${userId}`).listen("MessageSent", (event) => {
@@ -89,11 +89,28 @@ function Chat() {
       echo
         .private(`chat.${activeChatUser.id}`)
         .listen("MessageSent", (event) => {
-          // console.log(event);
           const message = {
             ...event.message,
             is_sender: event.message.user_id === userId,
           };
+          // const messageStatusUpdate = async () => {
+          //   try {
+          //     const result = await useApis.update(
+          //       `messages/${event.message.id}`,
+          //       true,
+          //       { status: "read" }
+          //     );
+          //     if (result.status) {
+          //       console.log(result.data);
+          //     } else {
+          //       throw new Error(result.message);
+          //     }
+          //   } catch (error) {
+          //     toast.error(error.message, {
+          //       className: "dark:bg-gray-800 dark:text-white",
+          //     });
+          //   }
+          // }
           setAllMessages((prevMessages) => [...prevMessages, message]);
         });
     }
