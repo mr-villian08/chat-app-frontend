@@ -1,6 +1,7 @@
 import toast from "react-hot-toast";
 import useApis from "../hooks/use-apis";
 import { defer } from "react-router-dom";
+import { authenticate } from "./Auth";
 
 // ? ********************************************************************* Profile ********************************************************************* */
 // get the profile
@@ -90,6 +91,7 @@ export const contactsLoader = () => {
 
 // ? ********************************************************************* Contacts Loaders ********************************************************************* */
 export const chatsLoader = () => {
+  authenticate();
   return defer({
     activeUsers: activeUsers(),
     recentChats: recentChats(),

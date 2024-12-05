@@ -52,7 +52,7 @@ const Login = () => {
                   onChange={handleChange}
                   placeholder="Username/Email"
                   autoComplete="off"
-                  isError={errors.password && touched.password}
+                  isError={errors.usernameOrEmail && touched.usernameOrEmail}
                   errors={errors}
                 />
               </div>
