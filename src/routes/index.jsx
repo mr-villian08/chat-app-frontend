@@ -18,68 +18,65 @@ import {
 } from "../utils/Actions";
 import { chatsLoader, contactsLoader, profileLoader } from "../utils/Loaders";
 
-const routes = createBrowserRouter(
-  [
-    {
-      path: "/",
-      errorElement: <Error />,
-      element: <RootLayout />,
-      loader: checkAuthLoader,
-      children: [
-        {
-          index: true,
-          element: <Chats />,
-          loader: chatsLoader,
-        },
-        {
-          path: "profile",
-          element: <Profile />,
-          loader: profileLoader,
-          action: profileAction,
-        },
-        {
-          path: "chats",
-          element: <Chats />,
-          loader: chatsLoader,
-        },
-        {
-          path: "groups",
-          element: <Groups />,
-        },
-        {
-          path: "contacts",
-          element: <Contacts />,
-          loader: contactsLoader,
-          action: addContactAction,
-        },
-        {
-          path: "settings",
-          element: <Settings />,
-        },
-        {
-          path: "logout",
-          action: logoutAction,
-        },
-      ],
-    },
-    {
-      path: "/auth",
-      errorElement: <Error />,
-      children: [
-        {
-          path: "login",
-          element: <Login />,
-          action: loginAction,
-        },
-        {
-          path: "sign-up",
-          element: <SignUp />,
-          action: signUpAction,
-        },
-      ],
-    },
-  ],
-  { basename: "/chat-app-frontend" }
-);
+const routes = createBrowserRouter([
+  {
+    path: "/",
+    errorElement: <Error />,
+    element: <RootLayout />,
+    loader: checkAuthLoader,
+    children: [
+      {
+        index: true,
+        element: <Chats />,
+        loader: chatsLoader,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
+        loader: profileLoader,
+        action: profileAction,
+      },
+      {
+        path: "chats",
+        element: <Chats />,
+        loader: chatsLoader,
+      },
+      {
+        path: "groups",
+        element: <Groups />,
+      },
+      {
+        path: "contacts",
+        element: <Contacts />,
+        loader: contactsLoader,
+        action: addContactAction,
+      },
+      {
+        path: "settings",
+        element: <Settings />,
+      },
+      {
+        path: "logout",
+        action: logoutAction,
+      },
+    ],
+  },
+  {
+    path: "/auth",
+    errorElement: <Error />,
+    children: [
+      {
+        path: "login",
+        element: <Login />,
+        action: loginAction,
+      },
+      {
+        path: "sign-up",
+        element: <SignUp />,
+        action: signUpAction,
+      },
+    ],
+  },
+]);
 
 export default routes;
