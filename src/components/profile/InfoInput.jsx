@@ -21,7 +21,7 @@ const InfoInput = ({ title, inputName, data, isTextArea = false }) => {
     },
     about: {
       value: data.about,
-      isEditing: data.about.length === 0,
+      isEditing: data?.about?.length === 0,
     },
   });
 
@@ -32,6 +32,30 @@ const InfoInput = ({ title, inputName, data, isTextArea = false }) => {
     textarea.style.height = `${textarea.scrollHeight}px`;
     setTextareaHeight(`${textarea.scrollHeight}px`);
   };
+
+  // ? *********************************************************************************** Check if the data is same *********************************************************************************** */
+  // const areAnagrams = (oldValue, newValue) => {
+  //   const clean = (value) => value.replace(/[^\w]/g, "").toLowerCase();
+  //   oldValue = clean(oldValue);
+  //   newValue = clean(newValue);
+
+  //   if (oldValue.length !== newValue.length) return false;
+
+  //   const frequency = {};
+
+  //   for (const char of oldValue) {
+  //     frequency[char] = (frequency[char] || 0) + 1;
+  //   }
+
+  //   for (const char of newValue) {
+  //     if (!frequency[char]) {
+  //       return false;
+  //     }
+  //     frequency[char]--;
+  //   }
+
+  //   return true;
+  // };
 
   // ? *********************************************************************************** Handle Submit *********************************************************************************** */
   const handleSubmit = (e) => {

@@ -1,10 +1,8 @@
+import PropTypes from "prop-types";
 import ActiveUserCard from "../cards/ActiveUserCard";
 import MultiCarousel from "../MultiCarousel";
-import { useLoaderData } from "react-router-dom";
 
-const ActiveUsers = () => {
-  const { activeUsers } = useLoaderData();
-
+const ActiveUsers = ({ activeUsers }) => {
   return (
     <div className="mt-6">
       <MultiCarousel data={activeUsers} Component={ActiveUserCard} />
@@ -13,3 +11,7 @@ const ActiveUsers = () => {
 };
 
 export default ActiveUsers;
+
+ActiveUsers.propTypes = {
+  activeUsers: PropTypes.object.isRequired,
+};

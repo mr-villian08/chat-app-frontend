@@ -15,7 +15,7 @@ const ContactListItem = ({ contacts, letter }) => {
           <NavLink
             to={`/chats`}
             className="flex justify-between items-center py-2"
-            onClick={() => onCreateChatRoom(contact.id)}
+            onClick={() => onCreateChatRoom(contact._id)}
           >
             <span>{contact.name}</span>
           </NavLink>

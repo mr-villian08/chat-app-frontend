@@ -7,7 +7,11 @@ import { authenticate } from "./Auth";
 // get the profile
 const profile = async () => {
   try {
-    const result = await useApis.get("profile", true);
+    const result = await useApis.get(
+      `users/${JSON.parse(localStorage.getItem("user")).id}`,
+      true
+    );
+
     if (result.status) {
       return result.data;
     }
@@ -26,6 +30,8 @@ const profile = async () => {
 const contacts = async () => {
   try {
     const result = await useApis.get("contacts", true);
+    console.log(result, "here");
+
     if (result.status) {
       return result.data;
     }

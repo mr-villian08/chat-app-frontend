@@ -5,16 +5,25 @@ import TopBar from "./TopBar";
 import { ChatContext } from "../../utils/ChatContextProvider";
 import toast from "react-hot-toast";
 import useApis from "../../hooks/use-apis";
-import useEcho from "../../hooks/use-echo";
-// import echo from "../../utils/Echo";
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost:8002", {
+  autoConnect: true,
+  auth: {
+    token: localStorage.getItem("token"),
+    userId: JSON.parse(localStorage.getItem("user"))?.id,
+  },
+});
 
 function Chat() {
   const { activeChatUser } = useContext(ChatContext);
+
+  // const socket = useSocket("http://localhost:8002");
   const [allMessages, setAllMessages] = useState(activeChatUser.messages);
   const [message, setMessage] = useState("");
   const [isPickerVisible, setIsPickerVisible] = useState(false);
-  const echo = useEcho();
-  const userId = JSON.parse(localStorage.getItem("user"))?.id;
+  // const echo = useEcho();
+  // const userId = JSON.parse(localStorage.getItem("user"))?.id;
 
   // ? ***************************************************************************** fetch the messages ***************************************************************************** */
   // const showMessages = async () => {
@@ -49,9 +58,15 @@ function Chat() {
       if (message.length === 0) {
         return;
       }
+      // const formData = {
+      //   chat_room_id: activeChatUser.chatRoom._id,
+      //   receiver_id: activeChatUser.participant.id,
+      //   content: message,
+      // };
+
       const formData = {
-        chat_room_id: activeChatUser.id,
-        receiver_id: activeChatUser.participant.id,
+        chatId: activeChatUser.chatRoom._id,
+        receiver: activeChatUser.participant._id,
         content: message,
       };
       const result = await useApis.post("messages", true, formData);
@@ -84,37 +99,47 @@ function Chat() {
     }
   };
 
+  // Listen for new messages
   useEffect(() => {
-    if (echo) {
-      echo
-        .private(`chat.${activeChatUser.id}`)
-        .listen("MessageSent", (event) => {
-          const message = {
-            ...event.message,
-            is_sender: event.message.user_id === userId,
-          };
-          // const messageStatusUpdate = async () => {
-          //   try {
-          //     const result = await useApis.update(
-          //       `messages/${event.message.id}`,
-          //       true,
-          //       { status: "read" }
-          //     );
-          //     if (result.status) {
-          //       console.log(result.data);
-          //     } else {
-          //       throw new Error(result.message);
-          //     }
-          //   } catch (error) {
-          //     toast.error(error.message, {
-          //       className: "dark:bg-gray-800 dark:text-white",
-          //     });
-          //   }
-          // }
-          setAllMessages((prevMessages) => [...prevMessages, message]);
-        });
-    }
-  }, [echo, activeChatUser.id, userId]);
+    socket.emit("joinRoom", activeChatUser.chatRoom._id);
+
+    socket.on("newMessage", (msg) => {
+      setAllMessages((prev) => [...prev, msg]);
+    });
+
+    return () => socket.off("newMessage");
+  }, [activeChatUser]);
+  // useEffect(() => {
+  //   if (echo) {
+  //     echo
+  //       .private(`chat.${activeChatUser.id}`)
+  //       .listen("MessageSent", (event) => {
+  //         const message = {
+  //           ...event.message,
+  //           is_sender: event.message.user_id === userId,
+  //         };
+  //         // const messageStatusUpdate = async () => {
+  //         //   try {
+  //         //     const result = await useApis.update(
+  //         //       `messages/${event.message.id}`,
+  //         //       true,
+  //         //       { status: "read" }
+  //         //     );
+  //         //     if (result.status) {
+  //         //       console.log(result.data);
+  //         //     } else {
+  //         //       throw new Error(result.message);
+  //         //     }
+  //         //   } catch (error) {
+  //         //     toast.error(error.message, {
+  //         //       className: "dark:bg-gray-800 dark:text-white",
+  //         //     });
+  //         //   }
+  //         // }
+  //         setAllMessages((prevMessages) => [...prevMessages, message]);
+  //       });
+  //   }
+  // }, [echo, activeChatUser.id, userId]);
 
   // ? ***************************************************************************** Render ***************************************************************************** */
   return (

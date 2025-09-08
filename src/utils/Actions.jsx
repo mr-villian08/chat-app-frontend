@@ -39,6 +39,7 @@ export const loginAction = async ({ request }) => {
       false,
       formData
     );
+
     if (result.status) {
       localStorage.setItem("user", JSON.stringify(result.data.user));
       localStorage.setItem("token", result.data.token);
@@ -81,11 +82,16 @@ export const logoutAction = async () => {
 };
 
 // ? ************************************************************ Profile ************************************************************ */
+// update
 export const profileAction = async ({ request }) => {
   try {
     const data = await request.formData();
     const formData = Object.fromEntries(data);
-    const result = await useApis.update("profile", true, formData);
+    const result = await useApis.update(
+      `users/${JSON.parse(localStorage.getItem("user")).id}`,
+      true,
+      formData
+    );
 
     if (result.status) {
       return toast.success(result.message, {

@@ -17,11 +17,13 @@ export default class useApis {
         headers: this.config(url, isToken, headers),
       });
 
+      let parsedResponse = await response.json();
+
       if (!response.ok) {
-        throw new Error("Something went wrong. Try again!");
+        throw new Error(parsedResponse.message);
       }
 
-      return await response.json();
+      return parsedResponse;
     } catch (error) {
       return error;
     }
@@ -35,11 +37,13 @@ export default class useApis {
         headers: this.config(url, isToken, headers),
       });
 
+      let parsedResponse = await response.json();
+
       if (!response.ok) {
-        throw new Error("Something went wrong. Try again!");
+        throw new Error(parsedResponse.message);
       }
 
-      return await response.json();
+      return parsedResponse;
     } catch (error) {
       return error;
     }
@@ -54,11 +58,13 @@ export default class useApis {
         headers: this.config(url, isToken, headers),
       });
 
+      let parsedResponse = await response.json();
+
       if (!response.ok) {
-        throw new Error("Something went wrong. Try again!");
+        throw new Error(parsedResponse.message);
       }
 
-      return await response.json();
+      return parsedResponse;
     } catch (error) {
       return error;
     }
@@ -72,11 +78,13 @@ export default class useApis {
         headers: this.config(url, isToken, headers),
       });
 
+      let parsedResponse = await response.json();
+
       if (!response.ok) {
-        throw new Error("Something went wrong. Try again!");
+        throw new Error(parsedResponse.message);
       }
 
-      return await response.json();
+      return parsedResponse;
     } catch (error) {
       return error;
     }

@@ -15,9 +15,9 @@ const RecentChatsCard = ({ recentChatId, recentChat, contactUser }) => {
           ? `${commonClasses} bg-gray-800`
           : commonClasses
       }`}
-      onClick={() => onCreateChatRoom(contactUser.id)}
+      onClick={() => onCreateChatRoom(contactUser._id)}
     >
-      <div className="relative">
+      {/* <div className="relative">
         {contactUser.image !== null && (
           <img
             className="w-[35px] h-[35px] object-cover rounded-full"
@@ -34,9 +34,9 @@ const RecentChatsCard = ({ recentChatId, recentChat, contactUser }) => {
         {contactUser.status === "ONLINE" && (
           <div className="p-1 w-0.5 h-0.5 absolute right-2 border-2 border-black bottom-0.5 rounded-full bg-green-500"></div>
         )}
-      </div>
+      </div> */}
       <div className="flex-1 text-left pl-4 leading-7">
-        <h5>{contactUser.name}</h5>
+        <h5>{contactUser?.name}</h5>
         {/* {recentChat.typing && (
           <div className="flex items-center text-xs text-gray-400">
             <span className="">typing</span>

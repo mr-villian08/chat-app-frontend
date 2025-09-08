@@ -1,35 +1,18 @@
-import { Suspense } from "react";
+import PropTypes from "prop-types";
 import InfoInput from "./InfoInput";
-import { Await, useLoaderData } from "react-router-dom";
 
-const Info = () => {
-  const { profile } = useLoaderData();
+const Info = ({ profile }) => {
   return (
-    <Suspense fallback={<p>Loading...</p>}>
-      <Await resolve={profile}>
-        {(loadedProfile) => (
-          <>
-            <InfoInput
-              title="Username"
-              inputName="username"
-              data={loadedProfile}
-            />
-            <InfoInput
-              title="Your Name"
-              inputName="name"
-              data={loadedProfile}
-            />
-            <InfoInput
-              title="About"
-              inputName="about"
-              data={loadedProfile}
-              isTextArea
-            />
-          </>
-        )}
-      </Await>
-    </Suspense>
+    <>
+      <InfoInput title="Username" inputName="username" data={profile} />
+      <InfoInput title="Your Name" inputName="name" data={profile} />
+      <InfoInput title="About" inputName="about" data={profile} isTextArea />
+    </>
   );
 };
 
 export default Info;
+
+Info.propTypes = {
+  profile: PropTypes.object.isRequired,
+};

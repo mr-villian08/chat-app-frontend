@@ -28,8 +28,8 @@ const ChatMessages = ({ messages }) => {
                 message={msg.content}
                 timestamp={msg.created_at}
                 isSender={msg.is_sender}
-                avatar={msg.user.image}
-                name={msg.user.name}
+                // avatar={msg.user.image}
+                // name={msg.user.name}
                 isLastMessage={messages.length === index + 1}
               />
             );
