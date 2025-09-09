@@ -24,12 +24,12 @@ const ChatMessages = ({ messages }) => {
           messages.map((msg, index) => {
             return (
               <ChatMessageCard
-                key={msg.id}
+                key={msg._id}
                 message={msg.content}
-                timestamp={msg.created_at}
-                isSender={msg.is_sender}
-                // avatar={msg.user.image}
-                // name={msg.user.name}
+                timestamp={msg.createdAtFormatted}
+                isSender={msg.isSender}
+                avatar={msg[msg.isSender ? "sender" : "receiver"].image}
+                name={msg[msg.isSender ? "sender" : "receiver"].name}
                 isLastMessage={messages.length === index + 1}
               />
             );

@@ -9,11 +9,7 @@ const TopBar = ({ image, name, status }) => {
     <div className="flex items-center border-b-2 border-gray-700 justify-between p-5">
       <div className="flex items-center">
         {image !== null && (
-          <img
-            className="h-8 w-8 rounded-full"
-            src="https://via.placeholder.com/150"
-            alt="Profile"
-          />
+          <img className="h-8 w-8 rounded-full" src={image} alt="Profile" />
         )}
         {image === null && (
           <span className="flex items-center justify-center h-8 w-8 bg-gray-500 text-center rounded-full">

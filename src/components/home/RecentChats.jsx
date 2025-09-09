@@ -21,7 +21,7 @@ const RecentChats = () => {
                     <RecentChatsCard
                       key={recentChat.id}
                       recentChatId={recentChat.id}
-                      recentChat={recentChat.last_message}
+                      recentChat={recentChat.lastMessage}
                       contactUser={recentChat.participant}
                     />
                   ))

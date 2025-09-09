@@ -17,24 +17,24 @@ const RecentChatsCard = ({ recentChatId, recentChat, contactUser }) => {
       }`}
       onClick={() => onCreateChatRoom(contactUser._id)}
     >
-      {/* <div className="relative">
-        {contactUser.image !== null && (
+      <div className="relative">
+        {contactUser.image !== undefined && (
           <img
             className="w-[35px] h-[35px] object-cover rounded-full"
             src={contactUser.image}
             alt={contactUser.name}
           />
         )}
-        {contactUser.image === null && (
+        {contactUser.image === undefined && (
           <span className="flex h-10 w-10 justify-center items-center bg-gray-500 text-center rounded-full mr-3">
             {contactUser.name.charAt(0).toUpperCase()}
           </span>
         )}
 
-        {contactUser.status === "ONLINE" && (
+        {contactUser.status === "online" && (
           <div className="p-1 w-0.5 h-0.5 absolute right-2 border-2 border-black bottom-0.5 rounded-full bg-green-500"></div>
         )}
-      </div> */}
+      </div>
       <div className="flex-1 text-left pl-4 leading-7">
         <h5>{contactUser?.name}</h5>
         {/* {recentChat.typing && (

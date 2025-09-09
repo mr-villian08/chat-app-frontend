@@ -7,11 +7,13 @@ import toast from "react-hot-toast";
 import useApis from "../../hooks/use-apis";
 import { io } from "socket.io-client";
 
+const userId = JSON.parse(localStorage.getItem("user"))?.id;
+
 const socket = io("http://localhost:8002", {
   autoConnect: true,
   auth: {
     token: localStorage.getItem("token"),
-    userId: JSON.parse(localStorage.getItem("user"))?.id,
+    userId,
   },
 });
 
@@ -104,7 +106,13 @@ function Chat() {
     socket.emit("joinRoom", activeChatUser.chatRoom._id);
 
     socket.on("newMessage", (msg) => {
-      setAllMessages((prev) => [...prev, msg]);
+      setAllMessages((prev) => [
+        ...prev,
+        {
+          ...msg,
+          isSender: msg.sender._id === userId, // 👈 compare with logged-in user
+        },
+      ]);
     });
 
     return () => socket.off("newMessage");
