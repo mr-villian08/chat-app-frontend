@@ -5,43 +5,16 @@ import TopBar from "./TopBar";
 import { ChatContext } from "../../utils/ChatContextProvider";
 import toast from "react-hot-toast";
 import useApis from "../../hooks/use-apis";
-import { io } from "socket.io-client";
-
-const userId = JSON.parse(localStorage.getItem("user"))?.id;
-
-const socket = io("http://localhost:8002", {
-  autoConnect: true,
-  auth: {
-    token: localStorage.getItem("token"),
-    userId,
-  },
-});
+import useSocket from "../../hooks/use-socket";
 
 function Chat() {
   const { activeChatUser } = useContext(ChatContext);
-
-  // const socket = useSocket("http://localhost:8002");
   const [allMessages, setAllMessages] = useState(activeChatUser.messages);
   const [message, setMessage] = useState("");
   const [isPickerVisible, setIsPickerVisible] = useState(false);
-  // const echo = useEcho();
-  // const userId = JSON.parse(localStorage.getItem("user"))?.id;
-
-  // ? ***************************************************************************** fetch the messages ***************************************************************************** */
-  // const showMessages = async () => {
-  //   try {
-  //     const result = await useApis.get(`messages/${activeChatUser.id}`);
-  //     if (result.status) {
-  //       setAllMessages(result.data);
-  //     } else {
-  //       throw new Error(result.message);
-  //     }
-  //   } catch (error) {
-  //     toast.error(error.message, {
-  //       className: "dark:bg-gray-800 dark:text-white",
-  //     });
-  //   }
-  // };
+  const userId = JSON.parse(localStorage.getItem("user"))?.id;
+  const token = localStorage.getItem("token");
+  const { socket, isConnected } = useSocket(userId, token);
 
   // ? ***************************************************************************** onClick the emoji ***************************************************************************** */
   const onEmojiClickHandler = (emojiObject) => {
@@ -60,11 +33,6 @@ function Chat() {
       if (message.length === 0) {
         return;
       }
-      // const formData = {
-      //   chat_room_id: activeChatUser.chatRoom._id,
-      //   receiver_id: activeChatUser.participant.id,
-      //   content: message,
-      // };
 
       const formData = {
         chatId: activeChatUser.chatRoom._id,
@@ -73,22 +41,6 @@ function Chat() {
       };
       const result = await useApis.post("messages", true, formData);
       if (result.status) {
-        // console.log(result.data);
-        // await showMessages();
-        // if (echo) {
-        //   echo.private(`chat.${userId}`).listen("MessageSent", (event) => {
-        //     const message = { ...event.message, is_sender: event.is_sender };
-        //     console.log(message, "here i am");
-        //     setAllMessages((prevMessages) => [...prevMessages, message]);
-        //   });
-        // }
-        // console.log("here");
-        // echo.private(`message`).listen("MessageSent", (e) => {
-        //   console.log("here i am");
-        //   // setMessages((prevMessages) => [...prevMessages, e.message]);
-        //   console.log(e);
-        // });
-
         setMessage("");
         return result;
       }
@@ -101,8 +53,11 @@ function Chat() {
     }
   };
 
+  console.log(socket, activeChatUser);
+
   // Listen for new messages
   useEffect(() => {
+    if (!socket || !isConnected || !activeChatUser) return;
     socket.emit("joinRoom", activeChatUser.chatRoom._id);
 
     socket.on("newMessage", (msg) => {
@@ -116,38 +71,7 @@ function Chat() {
     });
 
     return () => socket.off("newMessage");
-  }, [activeChatUser]);
-  // useEffect(() => {
-  //   if (echo) {
-  //     echo
-  //       .private(`chat.${activeChatUser.id}`)
-  //       .listen("MessageSent", (event) => {
-  //         const message = {
-  //           ...event.message,
-  //           is_sender: event.message.user_id === userId,
-  //         };
-  //         // const messageStatusUpdate = async () => {
-  //         //   try {
-  //         //     const result = await useApis.update(
-  //         //       `messages/${event.message.id}`,
-  //         //       true,
-  //         //       { status: "read" }
-  //         //     );
-  //         //     if (result.status) {
-  //         //       console.log(result.data);
-  //         //     } else {
-  //         //       throw new Error(result.message);
-  //         //     }
-  //         //   } catch (error) {
-  //         //     toast.error(error.message, {
-  //         //       className: "dark:bg-gray-800 dark:text-white",
-  //         //     });
-  //         //   }
-  //         // }
-  //         setAllMessages((prevMessages) => [...prevMessages, message]);
-  //       });
-  //   }
-  // }, [echo, activeChatUser.id, userId]);
+  }, [socket, activeChatUser, userId, isConnected]);
 
   // ? ***************************************************************************** Render ***************************************************************************** */
   return (

@@ -1,30 +1,37 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 
-const useSocket = (url) => {
-  const socketRef = useRef();
+export default function useSocket(userId, token) {
+  const socketRef = useRef(null);
+  const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
-    socketRef.current = io(url);
+    if (!userId || !token) return;
 
+    // Initialize socket
+    socketRef.current = io("http://localhost:8002", {
+      autoConnect: true,
+      auth: { userId, token },
+    });
+
+    // When connected
+    socketRef.current.on("connect", () => {
+      setIsConnected(true);
+    });
+
+    // When disconnected
+    socketRef.current.on("disconnect", () => {
+      setIsConnected(false);
+    });
+
+    // Cleanup
     return () => {
-      socketRef.current.disconnect();
+      if (socketRef.current) {
+        socketRef.current.disconnect();
+        socketRef.current = null;
+      }
     };
-  }, [url]);
+  }, [userId, token]);
 
-  const sendMessage = (message) => {
-    if (socketRef.current) {
-      socketRef.current.emit("sendMessage", message);
-    }
-  };
-
-  const listenForMessages = (callback) => {
-    if (socketRef.current) {
-      socketRef.current.on("receiveMessage", callback);
-    }
-  };
-
-  return { sendMessage, listenForMessages };
-};
-
-export default useSocket;
+  return { socket: socketRef.current, isConnected };
+}

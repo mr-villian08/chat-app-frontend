@@ -62,7 +62,9 @@ export const loginAction = async ({ request }) => {
 // ? ************************************************************ Logout ************************************************************ */
 export const logoutAction = async () => {
   try {
-    const result = await useApis.post("auth/logout", true);
+    const result = await useApis.post("auth/logout", true, {
+      userId: JSON.parse(localStorage.getItem("user")).id,
+    });
 
     if (result.status) {
       localStorage.removeItem("token");

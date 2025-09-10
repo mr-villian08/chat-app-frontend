@@ -30,7 +30,6 @@ const profile = async () => {
 const contacts = async () => {
   try {
     const result = await useApis.get("contacts", true);
-    console.log(result, "here");
 
     if (result.status) {
       return result.data;
